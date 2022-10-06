@@ -1,7 +1,8 @@
-opencv-python
+opencv
 numpy
 pandas
 matplotlib
 pathlib
 sklearn
 tensorflow
+keras
