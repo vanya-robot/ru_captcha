@@ -3,8 +3,35 @@ from pathlib import Path
 from tensorflow import keras
 
 
-def is_valid_captcha(captcha):
-    data_dir = Path("../input/russian-captcha-images-base64/img/answers")
+def characters_compute(data_dir):
+
+    characters = set()
+
+    # A list to store the length of each captcha
+    captcha_length = []
+
+    # Store image-label info
+    dataset = []
+
+    # Get list of all the images
+    images = list(data_dir.glob("*.jpg"))
+
+    for img_path in images:
+        # 1. Get the label associated with each image
+        label = img_path.name.split(".jpg")[0]
+        # 2. Store the length of this captcha
+        captcha_length.append(len(label))
+        # 3. Store the image-label pair info
+        dataset.append((str(img_path), label))
+
+        # 4. Store the characters present
+        for ch in label:
+            characters.add(ch)
+    return characters
+
+
+def is_valid_captcha(captcha, path): # Insert path to files
+    data_dir = Path(path)
 
     characters = set()
     # A list to store the length of each captcha
